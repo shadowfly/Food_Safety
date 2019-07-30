@@ -1,10 +1,9 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.4.24;
 
 contract FoodSafety {
     enum State {Output, Check, Transport, Flow}//食品状态：出厂、抽检、运输、流通
 
     uint public foodId = 0;
-    address public legalAgency;
 
     struct Food {
         uint batchNum;//生产批次
@@ -48,8 +47,9 @@ contract FoodSafety {
     event LogTransport(uint foodId);
     event LogFlow(uint foodId);
 
-    constructor (address addr) public {
-        legalAgency = addr;
+    //test
+    function getFoodID() public returns(uint) {
+        return foodId;
     }
 
     //食品出厂
@@ -71,7 +71,6 @@ contract FoodSafety {
     }
     //食品抽检
     function foodCheck(uint checkId, bool checkResult, string memory superImg) public returns(address){
-        require(msg.sender == legalAgency, 'Authority Error.');
         require(foods[checkId].status == State.Output, 'Food Status Error(check).');
         if(checkResult == true) {
             foods[checkId].superImg = superImg;
@@ -104,7 +103,6 @@ contract FoodSafety {
     }
     //添加合法供应商
     function addSupplier(address suppAddr, string memory suppName, string memory legalImg) public {
-        require(msg.sender == legalAgency, 'Authority Error.');
         suppliers[suppAddr] = Supplier(suppName, legalImg);
         suppWhiteList[suppAddr] = true;
     }
