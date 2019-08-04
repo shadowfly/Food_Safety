@@ -21,7 +21,7 @@ contract InfoTable {
     //Food Init
     function createFood() private {
         TableFactory tf = TableFactory(0x1001);
-        tf.createTable("food_info","foodNum","suppId,transId,prodId,retailId,outDate,ingredient,temp,origin,foodImg");
+        tf.createTable("food_info","foodNum","suppId,transId,prodId,retailId,outDate,ingredient,temp,origin,foodImg,foodState");
     }
     function openFoodTab() private returns(Table) {
         TableFactory tf = TableFactory(0x1001);
@@ -74,24 +74,37 @@ contract InfoTable {
     }
 
     //Add food info.
-    function foodInsert(string foodNum,string suppId,string transId,string prodId,string retailId,string outDate,string ingredient,string temp,string origin,string foodImg) public returns(int) {
+    function suppAdd(string foodNum,string suppId,string outDate,string ingredient,string origin,string foodImg) public returns(int256) {
         Table foodTab = openFoodTab();
         Entry foodEntry = foodTab.newEntry();
         foodEntry.set("foodNum",foodNum);
         foodEntry.set("suppId",suppId);
-        foodEntry.set("transId",transId);
-        foodEntry.set("prodId",prodId);
-        foodEntry.set("retailId",retailId);
         foodEntry.set("outDate",outDate);
         foodEntry.set("ingredient",ingredient);
-        foodEntry.set("temp",temp);
         foodEntry.set("origin",origin);
         foodEntry.set("foodImg",foodImg);
         int256 foodCount = foodTab.insert(foodNum,foodEntry);
-        emit foodInsertEvent(foodCount);
         return foodCount;
     }
-
+    function transAdd(string foodNum,string transId,string temp) public returns(int256) {
+        Table foodTab = openFoodTab();
+        Entry foodEntry = foodTab.newEntry();
+        foodEntry.set("transId",transId);
+        foodEntry.set("temp",temp);
+        Condition cond = foodTab.newCondition();
+        cond.EQ("foodNum", foodNum);
+        int256 foodCount = foodTab.update(foodNum,foodEntry,cond);
+        return foodCount;
+    }
+    function retailAdd(string foodNum,string retailId) public returns(int256) {
+        Table foodTab = openFoodTab();
+        Entry foodEntry = foodTab.newEntry();
+        foodEntry.set("retailId",retailId);
+        Condition cond = foodTab.newCondition();
+        cond.EQ("foodNum", foodNum);
+        int256 foodCount = foodTab.update(foodNum,foodEntry,cond);
+        return foodCount;
+    }
     //Add supplier info.
     //Use the fisco autority contorl to guarantee that only the suppliers can get access to this table.
     function suppInsert(string suppId,string suppName,string suppImg) public returns(int256) {
