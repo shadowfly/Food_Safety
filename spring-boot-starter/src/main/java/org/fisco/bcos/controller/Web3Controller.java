@@ -1,6 +1,6 @@
 package org.fisco.bcos.controller;
 
-import org.fisco.bcos.contract.InfoTable;
+import contract.InfoTable;
 import org.fisco.bcos.web3j.crypto.Credentials;
 import org.fisco.bcos.web3j.crypto.Keys;
 import org.fisco.bcos.web3j.protocol.Web3j;
@@ -34,17 +34,20 @@ public class Web3Controller {
         // 初始化Credentials对象
         Credentials credentials = Credentials.create(Keys.createEcKeyPair());
 
+        //ipfs上传和下载
         String resultHash = ipfs.upload();
         ipfs.download(resultHash);
 
-//        InfoTable asset = InfoTable.deploy(web3, credentials, new StaticGasProvider(GAS_PRICE, GAS_LIMIT)).send();
-        String contractAddress = "0xcdcce60801c0a2e6bb534322c32ae528b9dec8d2";
+        //部署合约
+        InfoTable asset = InfoTable.deploy(web3, credentials, new StaticGasProvider(GAS_PRICE, GAS_LIMIT)).send();
+//        String contractAddress = "0xcdcce60801c0a2e6bb534322c32ae528b9dec8d2";
         // 加载合约地址
-        InfoTable asset = InfoTable.load(contractAddress, web3, credentials, new StaticGasProvider(GAS_PRICE, GAS_LIMIT));
+//        InfoTable asset = InfoTable.load(contractAddress, web3, credentials, new StaticGasProvider(GAS_PRICE, GAS_LIMIT));
         TransactionReceipt resultInsert = asset.retailInsert("0","store",resultHash).send();
 
-        TransactionReceipt resultSelect = asset.retailSelect("0").send();
-        System.out.println("retailSelect:"+resultSelect);
+        System.out.println("retailInsert:"+resultInsert);
+        Tuple2<byte[],byte[]> resultSelect = asset.retailSelect("0").send();
+        System.out.println("retailSelect:"+new String(resultSelect.getValue1())+" "+new String(resultSelect.getValue2()));
     }
 
 }

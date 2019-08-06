@@ -1,4 +1,4 @@
-package org.fisco.bcos.contract;
+package contract;
 
 import java.math.BigInteger;
 import java.util.Arrays;

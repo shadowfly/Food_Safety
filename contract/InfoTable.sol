@@ -169,7 +169,7 @@ contract InfoTable {
     }
 
     //Select transport table.
-    function transSelect(string transId) public returns(bytes32,bytes32,bytes32) {
+    function transSelect(string transId) public constant returns(bytes32,bytes32,bytes32) {
         Table transTab = openTransTab();
         Condition transCond = transTab.newCondition();
         transCond.EQ("transId", transId);
@@ -178,7 +178,7 @@ contract InfoTable {
         return (transEntry.getBytes32("driver"),transEntry.getBytes32("carNum"),transEntry.getBytes32("driverImg"));
     }
     //Select retail table.
-    function retailSelect(string retailId) public returns(bytes32,bytes32) {
+    function retailSelect(string retailId) public constant returns(bytes32,bytes32) {
         Table retailTab = openRetailTab();
         Condition retailCond = retailTab.newCondition();
         retailCond.EQ("retailId", retailId);
@@ -187,7 +187,7 @@ contract InfoTable {
         return (retailEntry.getBytes32("retailName"),retailEntry.getBytes32("retailImg"));        
     }
     //Select three party table.
-    function threePartySelect(string threePartyId) public returns(bytes32,bytes32) {
+    function threePartySelect(string threePartyId) public constant returns(bytes32,bytes32) {
         Table threePartyTab = openThreePartyTab();
         Condition threePartyCond = threePartyTab.newCondition();
         threePartyCond.EQ("threePartyId", threePartyId);
