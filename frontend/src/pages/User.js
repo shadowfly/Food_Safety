@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Icon, AutoComplete, Carousel } from 'antd';
-import ApplyToChain from '../roles/ApplyToChain';
+import ApplyToChain from '../contents/ApplyToChain';
+import AddFoodInfo from '../contents/AddFoodInfo';
 import '../css/User.css';
 import '../image/hotdog.png';
 import '../image/slogan.png';
@@ -11,6 +12,8 @@ class UserPage extends Component {
 
     state = {
         collapsed:false,
+        funcSelect:0,
+        subContent:<AddFoodInfo />
     }
 
     onCollapse = collapsed => {
@@ -18,14 +21,45 @@ class UserPage extends Component {
         this.setState({collapsed:collapsed})
     }
 
+    menuClick = (selectedInfo) => {
+      console.log(selectedInfo.key)
+      switch(selectedInfo.key) {
+        case "apply":
+          this.setState({subContent:<ApplyToChain />})
+          break;
+        case "addInfo":
+          this.setState({subContent:<AddFoodInfo />})
+          break;
+        case "check":
+          this.setState({subContent:<AddFoodInfo />})
+          break;
+        case "warning":
+          this.setState({subContent:<AddFoodInfo />})
+          break;
+        case "black_list":
+          this.setState({subContent:<AddFoodInfo />})
+          break;
+        case "info":
+          this.setState({subContent:<AddFoodInfo />})
+          break;
+        case "register":
+          this.setState({subContent:<AddFoodInfo />})
+          break;
+        case "login":
+          this.setState({subContent:<ApplyToChain />})
+          break;
+      }
+    }
+
     render() {
+      const {subContent} = this.state
         return (
             <Layout style={{ minHeight: '100vh' }}>
             <Sider style={{ background: '#fff' }} collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
               <div className="logo" style={{height:160}}>
                 <img src="hotdog.png" style={{width:100, height:AutoComplete}}/>
               </div>
-              <Menu defaultSelectedKeys={['apply']} mode="inline">
+              <Menu defaultSelectedKeys={['addInfo']} mode="inline" onClick={this.menuClick}>
                 <Menu.Item key="apply">
                   <Icon type="safety-certificate" />
                   <span>申请入链</span>
@@ -78,7 +112,7 @@ class UserPage extends Component {
                 </Carousel>
               </Header>
               <Content style={{background: '#fff' }}>
-                <ApplyToChain />
+                {subContent}
               </Content>
               <Footer style={{ textAlign: 'center',background: '#fff',height:48,padding:15 }}>©Food Safety 2019</Footer>
             </Layout>
