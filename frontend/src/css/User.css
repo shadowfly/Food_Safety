@@ -1,0 +1,21 @@
+.logo {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px;
+}
+
+.ant-carousel .slick-slide {
+    text-align: center;
+    height: 160px;
+    line-height: 160px;
+    background: #d7e6df;
+    overflow: hidden;
+  }
+  
+.ant-carousel .slick-slide h2 {
+    color: #fff;
+}
+
+.ant-layout-sider-trigger {
+    background: #d7e6df;
+}

@@ -1,0 +1,16 @@
+#components-form-demo-normal-login .login-form {
+    max-width: 300px;
+  }
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
+}
+.divForm{
+  position: absolute;/*绝对定位*/
+  width: 250px;
+  height: 300px;
+  text-align: center;
+  top: 50%;
+  left: 60%;
+  margin-top: -150px;
+  margin-left: -150px;
+}
