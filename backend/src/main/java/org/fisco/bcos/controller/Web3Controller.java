@@ -25,7 +25,7 @@ public class Web3Controller {
     @Autowired
     private IPFSConfig ipfs;
 
-    @Bean
+    //@Bean
     public void test() throws Exception {
         // 初始化Web3j对象
         BigInteger blockNumber = web3.getBlockNumber().send().getBlockNumber();

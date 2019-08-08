@@ -6,9 +6,10 @@ import io.ipfs.api.MerkleNode;
 import io.ipfs.api.NamedStreamable;
 import io.ipfs.multihash.Multihash;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
-@Controller
+@Component
 public class IPFSConfig {
 
     public String upload() throws Exception {
