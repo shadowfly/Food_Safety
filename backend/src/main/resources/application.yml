@@ -20,9 +20,3 @@ accounts:
   pem-file: 0xcdcce60801c0a2e6bb534322c32ae528b9dec8d2.pem
   p12-file: 0x98333491efac02f8ce109b0c499074d47e7779a6.p12
   password: 123456
-
-spring:
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
-    enabled: true

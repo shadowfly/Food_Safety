@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {Form, Upload, Button, message, Radio, Input, Icon, AutoComplete} from 'antd';
+import {Form, Upload, Button, message, Radio, Input, Icon,} from 'antd';
 import reqwest from 'reqwest';
 import "../css/ApplyToChain.css";
+import axios from 'axios';
 
 class ApplyToChain_Form extends Component {
 
@@ -23,26 +24,14 @@ class ApplyToChain_Form extends Component {
           uploading: true,
         });    
         console.log(role)
-        // You can use any AJAX library you like
-        reqwest({
-          url: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-          method: 'post',
-          processData: false,
-          data: formData,
-          success: () => {
-            this.setState({
-              fileList: [],
-              uploading: false,
-            });
-            message.success('upload successfully.');
-          },
-          error: () => {
-            this.setState({
-              uploading: false,
-            });
-            message.error('upload failed.');
-          },
-        });
+        // TODO: interact with backend code
+        // fetch('http://localhost:8080/getFile',{
+        //   method:'PUT',
+        //   body:formData,
+        // })
+        // .then(res => res.json())
+        // .catch(err => console.log(err))
+        // .then(res => console.log('success:',res))
       };
 
     handleSubmit = e => {

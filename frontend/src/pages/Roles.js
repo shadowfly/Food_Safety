@@ -2,18 +2,23 @@ import React, { Component } from 'react';
 import { Layout, Menu, Icon, AutoComplete, Carousel } from 'antd';
 import ApplyToChain from '../contents/ApplyToChain';
 import AddFoodInfo from '../contents/AddFoodInfo';
+import SuppAdd from '../contents/RolesAdd/SuppAdd';
+import TransAdd from '../contents/RolesAdd/TransAdd';
+import RetailAdd from '../contents/RolesAdd/RetailAdd';
 import '../css/User.css';
 import '../image/hotdog.png';
 import '../image/slogan.png';
+import Home from './Home';
 
 const { Header, Content, Footer, Sider } = Layout;
+const { SubMenu } = Menu;
 
-class UserPage extends Component {
+class Roles extends Component {
 
     state = {
         collapsed:false,
         funcSelect:0,
-        subContent:<AddFoodInfo />
+        subContent:<Home />,
     }
 
     onCollapse = collapsed => {
@@ -22,12 +27,13 @@ class UserPage extends Component {
     }
 
     menuClick = (selectedInfo) => {
+      const {subMenuSelect} = this.state; 
       console.log(selectedInfo.key)
       switch(selectedInfo.key) {
         case "apply":
           this.setState({subContent:<ApplyToChain />})
           break;
-        case "addInfo":
+        case "foodInfo":
           this.setState({subContent:<AddFoodInfo />})
           break;
         case "check":
@@ -48,6 +54,18 @@ class UserPage extends Component {
         case "login":
           this.setState({subContent:<ApplyToChain />})
           break;
+        case 'suppAdd':
+            this.setState({subContent:<SuppAdd />})
+            break;
+        case 'transAdd':
+            this.setState({subContent:<TransAdd />})
+            break;
+        case 'retailAdd':
+            this.setState({subContent:<RetailAdd />})
+            break;
+        default:
+          this.setState({subContent:<Home />})
+          break;
       }
     }
 
@@ -59,14 +77,28 @@ class UserPage extends Component {
               <div className="logo" style={{height:160}}>
                 <img src="hotdog.png" style={{width:100, height:AutoComplete}}/>
               </div>
-              <Menu defaultSelectedKeys={['addInfo']} mode="inline" onClick={this.menuClick}>
+              <Menu mode="inline" onClick={this.menuClick}>
                 <Menu.Item key="apply">
                   <Icon type="safety-certificate" />
                   <span>申请入链</span>
                 </Menu.Item>
-                <Menu.Item key="addInfo">
-                  <Icon type="appstore" />
-                  <span>信息上传</span>
+                <SubMenu
+                  key="addInfo"
+                  style={{paddingLeft:20}}
+                  onTitleClick={this.subMenuClick}
+                  title={
+                    <span>
+                       <Icon type="appstore" />
+                       <span>信息上传</span>
+                    </span>
+                  }>
+                    <Menu.Item key="suppAdd">制造商</Menu.Item>
+                    <Menu.Item key="transAdd">物流</Menu.Item>
+                    <Menu.Item key="retailAdd">零售商</Menu.Item>
+                </SubMenu>
+                <Menu.Item key="foodInfo">
+                  <Icon type="database" />
+                  <span>食品信息</span>
                 </Menu.Item>
                 <Menu.Item key="check">
                   <Icon type="medicine-box" />
@@ -121,4 +153,4 @@ class UserPage extends Component {
     }
 }
 
-export default UserPage;
+export default Roles;

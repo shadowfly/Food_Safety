@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
-import {PageHeader} from 'antd';
+import SuppAdd from './RolesAdd/SuppAdd';
+import TransAdd from './RolesAdd/RetailAdd';
+import RetailAdd from './RolesAdd/RetailAdd';
 
 class AddFoodInfo extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            roleAdd:''
+        }
+    }
+   
+    //TODO:interact with backend code.
+    // componentDidMount = () => {
+    //     fetch('/api/hello')
+    //     .then(res => res.text())
+    //     .then(message => this.setState({message:message}))
+    // }
+
     render() {
         return(
             <div>
-                <PageHeader 
-                title="早上好，供应商"
-                subTitle="请在下方输入食品信息"
-                />
+                hello add food AddFoodInfo
             </div>
         )
     }

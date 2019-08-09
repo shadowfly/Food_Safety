@@ -2,24 +2,38 @@ package org.fisco.bcos.controller;
 
 import org.fisco.bcos.form.SuppForm;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.io.File;
+
+@RestController
 public class SuppRegisterController {
 
-    @RequestMapping(value="/suppRegister",method = RequestMethod.GET)
-    public String getSuppForm() {
+//    @GetMapping("/suppRegister")
+//    public String getSuppForm() {
+//
+//        return "suppRegister";
+//    }
+//
+//    @PostMapping("/suppRegister")
+//    public String suppRegister(@ModelAttribute(name="suppForm") SuppForm suppForm) {
+//        String suppName = suppForm.getSuppName();
+//        String suppId = suppForm.getSuppId();
+//        System.out.println(suppName+"aaaaa"+suppId);
+//        return "home";
+//    }
 
-        return "suppRegister";
+    @GetMapping("/api/hello")
+    public String hello () {
+        return "hello world";
     }
 
-    @RequestMapping(value = "/suppRegister",method = RequestMethod.POST)
-    public String suppRegister(@ModelAttribute(name="suppForm") SuppForm suppForm) {
-        String suppName = suppForm.getSuppName();
-        String suppId = suppForm.getSuppId();
-        System.out.println(suppName+"aaaaa"+suppId);
-        return "home";
+
+    @PostMapping("/getFile")
+    public String getFile(Object file) {
+        System.out.println(file);
+        System.out.println("success");
+        return "success";
     }
+
 }
