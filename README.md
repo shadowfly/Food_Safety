@@ -12,7 +12,7 @@
 
 ## 已完成部分
 
-![image](http://github.com/RookieLinLucy666/Food_Safety/raw/master/image.png)
+![image](https://github.com/RookieLinLucy666/Food_Safety/raw/master/image.png)
 
 ### 前端
 
@@ -28,35 +28,30 @@
 4. 部分前后端交互接口
 
 ## 项目运行
-### 端口远程访问服务器ipfs
- `ssh -L 5001:localhost:5001 -L 4001:localhost:4001 -L 8080:localhost:8080  ubuntu@49.234.194.80`
 
-### 启动ipfs
- `ipfs daemon`
+### 前端
 
-### 启动fisco bcos节点
-`cd ~/fisco && bash nodes/127.0.0.1/start_all.sh`
+访问React App http://localhost:3000
 
-### 安装依赖
+#### 安装依赖
 `cd FoodSafety/frontend && yarn install`
 
-### 前端启动
+#### 前端启动
 `cd FoodSafety/frontend && yarn start`
 
-### 运行springboot project 端口远程访问服务器ipfs
+### 后端
+
+- 访问IPFS控制界面 http://localhost:5001/webui
+- 访问Tomcat http://localhost:8080
+
+#### 端口远程访问服务器ipfs
  `ssh -L 5001:localhost:5001 -L 4001:localhost:4001 -L 8080:localhost:8080  ubuntu@49.234.194.80`
 
-### 启动ipfs
+#### 启动ipfs
  `ipfs daemon`
 
-### 启动fisco bcos节点
+#### 启动fisco bcos节点
 `cd ~/fisco && bash nodes/127.0.0.1/start_all.sh`
 
-### 安装依赖
-`cd FoodSafety/frontend && yarn install`
-
-### 前端启动
-`cd FoodSafety/frontend && yarn start`
-
-### 运行springboot project
+#### 运行springboot project
 
