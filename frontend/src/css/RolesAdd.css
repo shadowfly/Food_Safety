@@ -1,0 +1,23 @@
+.suppForm {
+  position: absolute;
+  width: 250px;
+  height: 300px;
+  top: 50%;
+  left: 60%;
+  margin-top: -150px;
+  margin-left: -150px;
+  text-align: right;
+}
+.ant-row {
+  display: flex;
+}
+
+.transForm {
+  position: absolute;
+  width: 250px;
+  height: 300px;
+  top: 50%;
+  left: 60%;
+  margin-top: -150px;
+  margin-left: -150px;
+}

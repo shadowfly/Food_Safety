@@ -9,6 +9,7 @@ import '../css/User.css';
 import '../image/hotdog.png';
 import '../image/slogan.png';
 import Home from './Home';
+import FoodInfo from '../contents/FoodInfo';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -18,7 +19,7 @@ class Roles extends Component {
     state = {
         collapsed:false,
         funcSelect:0,
-        subContent:<Home />,
+        subContent:<FoodInfo />,
     }
 
     onCollapse = collapsed => {
@@ -34,7 +35,7 @@ class Roles extends Component {
           this.setState({subContent:<ApplyToChain />})
           break;
         case "foodInfo":
-          this.setState({subContent:<AddFoodInfo />})
+          this.setState({subContent:<FoodInfo />})
           break;
         case "check":
           this.setState({subContent:<AddFoodInfo />})
