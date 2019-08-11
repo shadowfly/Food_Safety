@@ -51,6 +51,8 @@ dependencies {
     compile group: 'org.apache.tomcat', name: 'tomcat-catalina', version: '9.0.22'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.7.RELEASE'
     compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.4.1'
+    compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.59'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

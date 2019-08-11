@@ -12,19 +12,29 @@ class ApplyToChain_Form extends Component {
         role:0,
     }
 
-    handleUpload = () => {
-        const { fileList,role} = this.state;
-        console.log(fileList[0])
+    handleUpload = (values) => {
+        const { fileList} = this.state;
         const formData = new FormData();
-        formData.append('files', fileList[0]);
+        formData.append('file', fileList[0]);
+        formData.append('roleName',values.roleName);
+        formData.append('roleId',values.roleId);
+        formData.append('role',values.role);
         this.setState({
           uploading: true,
         });    
-        console.log(role)
+        var formJSON = {}
+        for(var pair of formData.entries()) {
+          console.log(pair[0]+ ', '+ pair[1]); 
+          formJSON[pair[0]] = pair[1];
+       } 
+       console.log(formJSON)
         fetch('http://localhost:8080/roleInsert',{
-          method:'PUT',
+          method:'POST',
           mode:'cors',
-          body:formData,
+          body:JSON.stringify(formJSON),
+          headers: new Headers({
+            'Content-Type': 'application/json',
+          })
         })
         .then(res => console.log(res))
         .catch(err => console.log(err))
@@ -42,7 +52,7 @@ class ApplyToChain_Form extends Component {
         this.props.form.validateFields((err, values) => {
           if (!err) {
             console.log('Received values of form: ', values);
-            this.handleUpload();
+            this.handleUpload(values);
           }
         });
     };

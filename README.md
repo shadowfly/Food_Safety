@@ -50,6 +50,18 @@
 #### 启动ipfs
  `ipfs daemon`
 
+#### ipfs跨域
+
+`ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "GET", "POST", "OPTIONS"]'`
+
+`ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'`
+
+`ipfs config --json API.HTTPHeaders.Access-Control-Allow-Credentials '["true"]'`
+
+`ipfs config --json API.HTTPHeaders.Access-Control-Allow-Headers '["Authorization"]'`
+
+`ipfs config --json API.HTTPHeaders.Access-Control-Expose-Headers '["Location"]'`
+
 #### 启动fisco bcos节点
 `cd ~/fisco && bash nodes/127.0.0.1/start_all.sh`
 
