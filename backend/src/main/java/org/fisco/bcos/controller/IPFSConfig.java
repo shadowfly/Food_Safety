@@ -5,9 +5,10 @@ import io.ipfs.api.IPFS;
 import io.ipfs.api.MerkleNode;
 import io.ipfs.api.NamedStreamable;
 import io.ipfs.multihash.Multihash;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 @Component
 public class IPFSConfig {
@@ -17,6 +18,8 @@ public class IPFSConfig {
         IPFS ipfs =new IPFS("/ip4/127.0.0.1/tcp/5001");
         //初始化
         ipfs.refs.local();
+        //对象转化byte数组
+
         //添加文件并返回hash值
         NamedStreamable.ByteArrayWrapper file = new NamedStreamable.ByteArrayWrapper("hello.txt", "G'day world! IPFS rocks!".getBytes());
         MerkleNode addResult = ipfs.add(file).get(0);

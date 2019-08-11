@@ -1,5 +1,6 @@
 package org.fisco.bcos.controller;
 
+import com.alibaba.fastjson.JSON;
 import org.fisco.bcos.form.SuppForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,9 +30,9 @@ public class SuppRegisterController {
     }
 
 
-    @PostMapping("/getFile")
+    @PutMapping ("/roleInsert")
     public String getFile(Object file) {
-        System.out.println(file);
+        System.out.println(file.toString());
         System.out.println("success");
         return "success";
     }
