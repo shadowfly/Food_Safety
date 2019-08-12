@@ -21,7 +21,7 @@ contract InfoTable {
     //Food Init
     function createFood() private {
         TableFactory tf = TableFactory(0x1001);
-        tf.createTable("food_info","foodNum","suppId,transId,prodId,retailId,outDate,ingredient,temp,origin,foodImg,foodState");
+        tf.createTable("food_info","foodNum","suppId,transId,retailId,outDate,ingredient,temp,origin,foodImg,foodState");
     }
     function openFoodTab() private returns(Table) {
         TableFactory tf = TableFactory(0x1001);
@@ -43,7 +43,7 @@ contract InfoTable {
     //Transport Init
     function createTrans() private {
         TableFactory tf = TableFactory(0x1001);
-        tf.createTable("trans_info","transId","driver,carNum,driverImg");
+        tf.createTable("trans_info","transId","carNum,driverImg");
     } 
     function openTransTab() private returns(Table) {
         TableFactory tf = TableFactory(0x1001);
@@ -120,11 +120,10 @@ contract InfoTable {
 
     //Add transport tablle.
     //Use the fisco autority contorl to guarantee that only the drivers can get access to this table.
-    function transInsert(string transId,string driver,string carNum,string driverImg) public returns(int256) {
+    function transInsert(string transId,string carNum,string driverImg) public returns(int256) {
         Table transTab = openTransTab();
         Entry transEntry = transTab.newEntry();
         transEntry.set("transId",transId);
-        transEntry.set("driver",driver);
         transEntry.set("carNum",carNum);
         transEntry.set("driverImg",driverImg);
         int256 transCount = transTab.insert(transId,transEntry);
@@ -159,7 +158,7 @@ contract InfoTable {
     }
 
     //Select supplier tablle.
-    function suppSelect(string suppId) public returns(bytes32,bytes32) {
+    function suppSelect(string suppId) public constant returns(bytes32,bytes32) {
         Table suppTab = openSuppTab();
         Condition suppCond = suppTab.newCondition();
         suppCond.EQ("suppId", suppId);
@@ -169,13 +168,13 @@ contract InfoTable {
     }
 
     //Select transport table.
-    function transSelect(string transId) public constant returns(bytes32,bytes32,bytes32) {
+    function transSelect(string transId) public constant returns(bytes32,bytes32) {
         Table transTab = openTransTab();
         Condition transCond = transTab.newCondition();
         transCond.EQ("transId", transId);
         Entries transEntries = transTab.select(transId,transCond);
         Entry transEntry = transEntries.get(0);
-        return (transEntry.getBytes32("driver"),transEntry.getBytes32("carNum"),transEntry.getBytes32("driverImg"));
+        return (transEntry.getBytes32("carNum"),transEntry.getBytes32("driverImg"));
     }
     //Select retail table.
     function retailSelect(string retailId) public constant returns(bytes32,bytes32) {
@@ -197,9 +196,9 @@ contract InfoTable {
     }
 
     //Point out a three party randomly.
-    //Suppose the scale of the three party = 100.
+    //Suppose the scale of the three party = 3.
     function pointThreeParty() public returns(uint256) {
-        uint256 threePartyId = uint256(keccak256(now))%100;
+        uint256 threePartyId = uint256(keccak256(now))%3;
         return threePartyId;
     }
     //Delete Food Information.

@@ -13,14 +13,15 @@ import java.io.ObjectOutputStream;
 @Component
 public class IPFSConfig {
 
-    public String upload() throws Exception {
+    public String upload(String rawFile) throws Exception {
+
         //创建节点
         IPFS ipfs =new IPFS("/ip4/127.0.0.1/tcp/5001");
         //初始化
         ipfs.refs.local();
         //对象转化byte数组
         //添加文件并返回hash值
-        NamedStreamable.ByteArrayWrapper file = new NamedStreamable.ByteArrayWrapper("hello.txt", "G'day world! IPFS rocks!".getBytes());
+        NamedStreamable.ByteArrayWrapper file = new NamedStreamable.ByteArrayWrapper("hello.txt",toByteArray(rawFile));
         MerkleNode addResult = ipfs.add(file).get(0);
 
         String resultJSON = addResult.toJSONString();
@@ -31,7 +32,7 @@ public class IPFSConfig {
         return resultHash;
     }
 
-    public void download(String resultHash) throws Exception {
+    public String download(String resultHash) throws Exception {
         //创建节点
         IPFS ipfs =new IPFS("/ip4/127.0.0.1/tcp/5001");
         //初始化
@@ -42,6 +43,23 @@ public class IPFSConfig {
         byte[] fileContents = ipfs.cat(filePointer);
 
         String result = new String(fileContents);
-        System.out.println(result);
+
+        return result;
+    }
+
+    public byte[] toByteArray (Object obj) {
+        byte[] bytes = null;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject(obj);
+            oos.flush();
+            bytes = bos.toByteArray ();
+            oos.close();
+            bos.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return bytes;
     }
 }

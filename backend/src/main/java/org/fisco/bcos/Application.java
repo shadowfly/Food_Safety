@@ -1,6 +1,6 @@
 package org.fisco.bcos;
 
-import org.fisco.bcos.controller.Web3Controller;
+import org.fisco.bcos.controller.Web3Config;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

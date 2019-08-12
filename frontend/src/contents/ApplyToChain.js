@@ -27,7 +27,6 @@ class ApplyToChain_Form extends Component {
           console.log(pair[0]+ ', '+ pair[1]); 
           formJSON[pair[0]] = pair[1];
        } 
-       console.log(formJSON)
         fetch('http://localhost:8080/roleInsert',{
           method:'POST',
           mode:'cors',
@@ -36,14 +35,15 @@ class ApplyToChain_Form extends Component {
             'Content-Type': 'application/json',
           })
         })
-        .then(res => console.log(res))
+        .then(res => res.json())
         .catch(err => console.log(err))
         .then(res => {
           this.setState({
             uploading:false
           })
+          console.log(res)
           this.props.form.resetFields()
-          message.success("申请信息上传成功，正等待入链")
+          message.success("图片hash地址为："+res.data);
         })
       };
 
@@ -51,7 +51,6 @@ class ApplyToChain_Form extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
           if (!err) {
-            console.log('Received values of form: ', values);
             this.handleUpload(values);
           }
         });

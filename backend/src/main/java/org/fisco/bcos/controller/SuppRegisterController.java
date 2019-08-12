@@ -4,7 +4,11 @@ import com.alibaba.fastjson.JSONObject;
 import io.ipfs.api.IPFS;
 import io.ipfs.api.MerkleNode;
 import io.ipfs.api.NamedStreamable;
+import io.ipfs.multihash.Multihash;
 import org.fisco.bcos.Component.Role;
+import org.fisco.bcos.web3j.protocol.Web3j;
+import org.fisco.bcos.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
@@ -12,22 +16,25 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 @RestController
-@CrossOrigin
 public class SuppRegisterController {
 
-    @GetMapping("/roleDisplay")
-    public String hello () {
+    @Autowired
+    private IPFSConfig ipfs;
 
-        return "hello world";
-    }
+    @Autowired
+    private Web3Config web3;
 
     @ResponseBody
     @PostMapping (value="/roleInsert",produces = "application/json;charset=UTF-8")
     public String getJSONData(@RequestBody Role role) throws Exception{
-
+        String roleName = role.getRoleName();
+        String roleId =role.getRoleId();
+        String roleImg = role.getFile();
+        String resultHash = ipfs.upload(roleImg);
         switch(role.getRole()) {
             case "supp":
-                System.out.println("supp");
+                TransactionReceipt web3Result = web3.suppInsert(roleId,roleName,resultHash);
+                System.out.println(web3Result);
                 break;
             case "trans":
                 System.out.println("trans");
@@ -39,34 +46,15 @@ public class SuppRegisterController {
                 System.out.println("supervise");
                 break;
         }
-        IPFS ipfs =new IPFS("/ip4/127.0.0.1/tcp/5001");
-        ipfs.refs.local();
-        NamedStreamable.ByteArrayWrapper file = new NamedStreamable.ByteArrayWrapper("hello.txt",toByteArray(role.getFile()));
-        MerkleNode addResult = ipfs.add(file).get(0);
 
-        String resultJSON = addResult.toJSONString();
-        JSONObject jsonResult = JSONObject.parseObject(resultJSON);
 
-        String resultHash = jsonResult.getString("Hash");
-        System.out.println(resultHash);
-        return "success";
+        JSONObject returnResult = new JSONObject();
+        returnResult.put("msg","success");
+        returnResult.put("method","@ResponseBody");
+        returnResult.put("data",resultHash);
 
-    }
+        return returnResult.toJSONString();
 
-    public byte[] toByteArray (Object obj) {
-        byte[] bytes = null;
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
-            oos.writeObject(obj);
-            oos.flush();
-            bytes = bos.toByteArray ();
-            oos.close();
-            bos.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return bytes;
     }
 }
 
