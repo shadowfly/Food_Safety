@@ -1,4 +1,4 @@
-package org.fisco.bcos.asset.contract;
+package org.fisco.bcos.contract;
 
 import io.reactivex.Flowable;
 import java.math.BigInteger;
@@ -437,9 +437,9 @@ public class InfoTable extends Contract {
     }
 
     public List<FoodInsertEventEventResponse> getFoodInsertEventEvents(TransactionReceipt transactionReceipt) {
-        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(FOODINSERTEVENT_EVENT, transactionReceipt);
+        List<EventValuesWithLog> valueList = extractEventParametersWithLog(FOODINSERTEVENT_EVENT, transactionReceipt);
         ArrayList<FoodInsertEventEventResponse> responses = new ArrayList<FoodInsertEventEventResponse>(valueList.size());
-        for (Contract.EventValuesWithLog eventValues : valueList) {
+        for (EventValuesWithLog eventValues : valueList) {
             FoodInsertEventEventResponse typedResponse = new FoodInsertEventEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.food = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
@@ -452,7 +452,7 @@ public class InfoTable extends Contract {
         return web3j.logFlowable(filter).map(new io.reactivex.functions.Function<Log, FoodInsertEventEventResponse>() {
             @Override
             public FoodInsertEventEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(FOODINSERTEVENT_EVENT, log);
+                EventValuesWithLog eventValues = extractEventParametersWithLog(FOODINSERTEVENT_EVENT, log);
                 FoodInsertEventEventResponse typedResponse = new FoodInsertEventEventResponse();
                 typedResponse.log = log;
                 typedResponse.food = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
@@ -468,9 +468,9 @@ public class InfoTable extends Contract {
     }
 
     public List<SuppInsertEventEventResponse> getSuppInsertEventEvents(TransactionReceipt transactionReceipt) {
-        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(SUPPINSERTEVENT_EVENT, transactionReceipt);
+        List<EventValuesWithLog> valueList = extractEventParametersWithLog(SUPPINSERTEVENT_EVENT, transactionReceipt);
         ArrayList<SuppInsertEventEventResponse> responses = new ArrayList<SuppInsertEventEventResponse>(valueList.size());
-        for (Contract.EventValuesWithLog eventValues : valueList) {
+        for (EventValuesWithLog eventValues : valueList) {
             SuppInsertEventEventResponse typedResponse = new SuppInsertEventEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.supp = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
@@ -483,7 +483,7 @@ public class InfoTable extends Contract {
         return web3j.logFlowable(filter).map(new io.reactivex.functions.Function<Log, SuppInsertEventEventResponse>() {
             @Override
             public SuppInsertEventEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(SUPPINSERTEVENT_EVENT, log);
+                EventValuesWithLog eventValues = extractEventParametersWithLog(SUPPINSERTEVENT_EVENT, log);
                 SuppInsertEventEventResponse typedResponse = new SuppInsertEventEventResponse();
                 typedResponse.log = log;
                 typedResponse.supp = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
@@ -499,9 +499,9 @@ public class InfoTable extends Contract {
     }
 
     public List<TransInsertEventEventResponse> getTransInsertEventEvents(TransactionReceipt transactionReceipt) {
-        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(TRANSINSERTEVENT_EVENT, transactionReceipt);
+        List<EventValuesWithLog> valueList = extractEventParametersWithLog(TRANSINSERTEVENT_EVENT, transactionReceipt);
         ArrayList<TransInsertEventEventResponse> responses = new ArrayList<TransInsertEventEventResponse>(valueList.size());
-        for (Contract.EventValuesWithLog eventValues : valueList) {
+        for (EventValuesWithLog eventValues : valueList) {
             TransInsertEventEventResponse typedResponse = new TransInsertEventEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.trans = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
@@ -514,7 +514,7 @@ public class InfoTable extends Contract {
         return web3j.logFlowable(filter).map(new io.reactivex.functions.Function<Log, TransInsertEventEventResponse>() {
             @Override
             public TransInsertEventEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(TRANSINSERTEVENT_EVENT, log);
+                EventValuesWithLog eventValues = extractEventParametersWithLog(TRANSINSERTEVENT_EVENT, log);
                 TransInsertEventEventResponse typedResponse = new TransInsertEventEventResponse();
                 typedResponse.log = log;
                 typedResponse.trans = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
@@ -530,9 +530,9 @@ public class InfoTable extends Contract {
     }
 
     public List<RetailInsertEventEventResponse> getRetailInsertEventEvents(TransactionReceipt transactionReceipt) {
-        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(RETAILINSERTEVENT_EVENT, transactionReceipt);
+        List<EventValuesWithLog> valueList = extractEventParametersWithLog(RETAILINSERTEVENT_EVENT, transactionReceipt);
         ArrayList<RetailInsertEventEventResponse> responses = new ArrayList<RetailInsertEventEventResponse>(valueList.size());
-        for (Contract.EventValuesWithLog eventValues : valueList) {
+        for (EventValuesWithLog eventValues : valueList) {
             RetailInsertEventEventResponse typedResponse = new RetailInsertEventEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.retail = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
@@ -545,7 +545,7 @@ public class InfoTable extends Contract {
         return web3j.logFlowable(filter).map(new io.reactivex.functions.Function<Log, RetailInsertEventEventResponse>() {
             @Override
             public RetailInsertEventEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(RETAILINSERTEVENT_EVENT, log);
+                EventValuesWithLog eventValues = extractEventParametersWithLog(RETAILINSERTEVENT_EVENT, log);
                 RetailInsertEventEventResponse typedResponse = new RetailInsertEventEventResponse();
                 typedResponse.log = log;
                 typedResponse.retail = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
@@ -561,9 +561,9 @@ public class InfoTable extends Contract {
     }
 
     public List<ThreePartyInsertEventEventResponse> getThreePartyInsertEventEvents(TransactionReceipt transactionReceipt) {
-        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(THREEPARTYINSERTEVENT_EVENT, transactionReceipt);
+        List<EventValuesWithLog> valueList = extractEventParametersWithLog(THREEPARTYINSERTEVENT_EVENT, transactionReceipt);
         ArrayList<ThreePartyInsertEventEventResponse> responses = new ArrayList<ThreePartyInsertEventEventResponse>(valueList.size());
-        for (Contract.EventValuesWithLog eventValues : valueList) {
+        for (EventValuesWithLog eventValues : valueList) {
             ThreePartyInsertEventEventResponse typedResponse = new ThreePartyInsertEventEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.threeParty = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
@@ -576,7 +576,7 @@ public class InfoTable extends Contract {
         return web3j.logFlowable(filter).map(new io.reactivex.functions.Function<Log, ThreePartyInsertEventEventResponse>() {
             @Override
             public ThreePartyInsertEventEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(THREEPARTYINSERTEVENT_EVENT, log);
+                EventValuesWithLog eventValues = extractEventParametersWithLog(THREEPARTYINSERTEVENT_EVENT, log);
                 ThreePartyInsertEventEventResponse typedResponse = new ThreePartyInsertEventEventResponse();
                 typedResponse.log = log;
                 typedResponse.threeParty = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
@@ -592,9 +592,9 @@ public class InfoTable extends Contract {
     }
 
     public List<InfoDeleteEventEventResponse> getInfoDeleteEventEvents(TransactionReceipt transactionReceipt) {
-        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(INFODELETEEVENT_EVENT, transactionReceipt);
+        List<EventValuesWithLog> valueList = extractEventParametersWithLog(INFODELETEEVENT_EVENT, transactionReceipt);
         ArrayList<InfoDeleteEventEventResponse> responses = new ArrayList<InfoDeleteEventEventResponse>(valueList.size());
-        for (Contract.EventValuesWithLog eventValues : valueList) {
+        for (EventValuesWithLog eventValues : valueList) {
             InfoDeleteEventEventResponse typedResponse = new InfoDeleteEventEventResponse();
             typedResponse.log = eventValues.getLog();
             typedResponse.foodNum = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
@@ -607,7 +607,7 @@ public class InfoTable extends Contract {
         return web3j.logFlowable(filter).map(new io.reactivex.functions.Function<Log, InfoDeleteEventEventResponse>() {
             @Override
             public InfoDeleteEventEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(INFODELETEEVENT_EVENT, log);
+                EventValuesWithLog eventValues = extractEventParametersWithLog(INFODELETEEVENT_EVENT, log);
                 InfoDeleteEventEventResponse typedResponse = new InfoDeleteEventEventResponse();
                 typedResponse.log = log;
                 typedResponse.foodNum = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();

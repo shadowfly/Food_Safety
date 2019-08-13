@@ -1,6 +1,6 @@
 package org.fisco.bcos.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import org.fisco.bcos.Component.Food;
 import org.fisco.bcos.Component.InfoSelect;
 import org.fisco.bcos.Component.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,10 @@ public class InfoSelectController {
 
     private Role role;
 
+    private Food food;
+
     @ResponseBody
+    @CrossOrigin("http://localhost:3000")
     @PostMapping(value="/suppSelect",produces = "application/json;charset=UTF-8")
     public String getSuppInfo(@RequestBody InfoSelect info) throws Exception {
 
@@ -22,20 +25,17 @@ public class InfoSelectController {
 
         role = web3.suppSelect(value);
 
-        System.out.println(web3);
-
         return role.resultJSON(role);
 
     }
 
     @ResponseBody
+    @CrossOrigin("http://localhost:3000")
     @PostMapping(value="/transSelect",produces = "application/json;charset=UTF-8")
     public String getTransInfo(@RequestBody InfoSelect info) throws Exception {
 
         String value = info.getValue();
 
-        System.out.println(web3);
-
         role = web3.transSelect(value);
 
         return role.resultJSON(role);
@@ -43,23 +43,60 @@ public class InfoSelectController {
     }
 
     @ResponseBody
+    @CrossOrigin("http://localhost:3000")
     @PostMapping(value="/retailSelect",produces = "application/json;charset=UTF-8")
     public String getRetailInfo(@RequestBody InfoSelect info) throws Exception {
 
         String value = info.getValue();
 
-        System.out.println(web3);
-
-        role = web3.transSelect(value);
+        role = web3.retailSelect(value);
 
         return role.resultJSON(role);
     }
 
     @ResponseBody
-    @GetMapping(value = "/")
-    public String helloWorld() throws Exception {
-        JSONObject returnResult = new JSONObject();
-        returnResult.put("roleId","hello World");
-        return returnResult.toJSONString();
+    @CrossOrigin("http://localhost:3000")
+    @PostMapping(value="/superviseSelect",produces = "application/json;charset=UTF-8")
+    public String getThreePartyInfo(@RequestBody InfoSelect info) throws Exception {
+
+        String value = info.getValue();
+
+        role = web3.threePartySelect(value);
+
+        return role.resultJSON(role);
+    }
+
+    @ResponseBody
+    @CrossOrigin("http://localhost:3000")
+    @PostMapping(value="/foodInfoDel",produces = "application/json;charset=UTF-8")
+    public String foodInfoDel() throws Exception {
+
+        return "delete food info successfully";
+    }
+
+    //TODO
+    @ResponseBody
+    @CrossOrigin("http://localhost:3000")
+    @PostMapping(value="/pointThreeParty",produces = "application/json;charset=UTF-8")
+    public String pointThreeParty() throws Exception {
+
+        role = web3.pointThreeParty();
+
+        return role.resultJSON(role);
+    }
+
+    //TODO
+    @ResponseBody
+    @CrossOrigin("http://localhost:3000")
+    @PostMapping(value="foodSelect",produces = "application/json;charset=UTF-8")
+
+    public String getFoodInfo(@RequestBody InfoSelect info) throws Exception {
+
+        String foodNum = info.getValue();
+
+        food = web3.foodSelect(foodNum);
+
+        return food.resultJSON(food);
+
     }
 }

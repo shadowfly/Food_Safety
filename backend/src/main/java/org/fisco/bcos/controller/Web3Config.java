@@ -2,7 +2,7 @@ package org.fisco.bcos.controller;
 
 import org.fisco.bcos.Component.Food;
 import org.fisco.bcos.Component.Role;
-import org.fisco.bcos.asset.contract.InfoTable;
+import org.fisco.bcos.contract.InfoTable;
 import org.fisco.bcos.web3j.crypto.Credentials;
 import org.fisco.bcos.web3j.crypto.Keys;
 import org.fisco.bcos.web3j.protocol.Web3j;
@@ -29,6 +29,8 @@ public class Web3Config {
 
     private Food food;
 
+    private InfoTable asset;
+
     public InfoTable assetInit() throws Exception {
         // 初始化Web3j对象
         BigInteger blockNumber = web3.getBlockNumber().send().getBlockNumber();
@@ -41,7 +43,7 @@ public class Web3Config {
         //InfoTable asset = InfoTable.deploy(web3, credentials, new StaticGasProvider(GAS_PRICE, GAS_LIMIT)).send();
 
         //根据地址加载合约
-        String contractAddress = "0x42792b02791c091b426163a550a2ba7509ab4a50";
+        String contractAddress = "0x02bc24528a907aead7774d4c44d4b7233fba31b1";
         InfoTable asset = InfoTable.load(contractAddress, web3, credentials, new StaticGasProvider(GAS_PRICE, GAS_LIMIT));
 
         return asset;
@@ -53,7 +55,9 @@ public class Web3Config {
         InfoTable asset = assetInit();
 
         TransactionReceipt suppInsert = asset.suppInsert(suppId,suppName,resultHash).send();
+
         return suppInsert;
+
     }
 
     public Role suppSelect (String suppId) throws Exception{

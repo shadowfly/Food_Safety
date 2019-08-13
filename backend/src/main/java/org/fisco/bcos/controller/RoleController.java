@@ -16,6 +16,7 @@ public class RoleController {
     private Web3Config web3;
 
     @ResponseBody
+    @CrossOrigin("http://localhost:3000")
     @PostMapping (value="/roleInsert",produces = "application/json;charset=UTF-8")
     public String postJSONData(@RequestBody Role role) throws Exception{
         String roleName = role.getRoleName();

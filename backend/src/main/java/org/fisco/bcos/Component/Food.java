@@ -1,5 +1,7 @@
 package org.fisco.bcos.Component;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class Food {
 
     private String foodNum;
@@ -82,5 +84,21 @@ public class Food {
 
     public void setTemp(String temp) {
         this.temp = temp;
+    }
+
+    public String resultJSON(Food food) {
+        JSONObject returnResult = new JSONObject();
+
+        returnResult.put("foodNum",food.getFoodNum());
+        returnResult.put("suppId",food.getSuppId());
+        returnResult.put("transId",food.getTransId());
+        returnResult.put("retailId",food.getRetailId());
+        returnResult.put("outDate",food.getOutDate());
+        returnResult.put("ingredient",food.getIngredient());
+        returnResult.put("original",food.getOriginal());
+        returnResult.put("foodImg",food.getFoodImg());
+        returnResult.put("temp",food.getTemp());
+
+        return returnResult.toJSONString();
     }
 }

@@ -24,7 +24,7 @@ class FoodInfoForm extends Component {
 
     handleSelect = (values) => {
         const formData = new FormData();
-        formData.append('value', values.value);
+        formData.append('value', values.num);
         formData.append('role',values.role);
         var formJSON = formData2JSON(formData)
         if (values.role !== "food") {
@@ -39,6 +39,7 @@ class FoodInfoForm extends Component {
               .then(res => res.json())
               .catch(err => console.log(err))
               .then(res => {
+                //TODO
                 this.setState({
                     roleId:res.roleId,
                     roleName:res.roleName,
@@ -47,6 +48,7 @@ class FoodInfoForm extends Component {
                 this.props.form.resetFields()
               })
         } else {
+          //TODO
             console.log("food")
         }
     }
@@ -75,6 +77,8 @@ class FoodInfoForm extends Component {
                           <Radio value="trans">物流公司</Radio>
                           <br />
                           <Radio value="retail">零售商</Radio>
+                          <Radio value="supervise">监管机构</Radio>
+                          <br />
                           <Radio value="food">食品溯源</Radio>
                           </Radio.Group>,
                         )}

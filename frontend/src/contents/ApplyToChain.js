@@ -28,6 +28,9 @@ class ApplyToChain_Form extends Component {
           method:'POST',
           mode:'cors',
           body:formJSON,
+          headers: new Headers({
+            'Content-Type': 'application/json',
+          })
         })
         .then(res => res.json())
         .catch(err => console.log(err))
