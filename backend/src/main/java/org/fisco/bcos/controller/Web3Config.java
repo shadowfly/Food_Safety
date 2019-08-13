@@ -1,5 +1,6 @@
 package org.fisco.bcos.controller;
 
+import org.fisco.bcos.Component.Food;
 import org.fisco.bcos.Component.Role;
 import org.fisco.bcos.contract.InfoTable;
 import org.fisco.bcos.web3j.crypto.Credentials;
@@ -7,13 +8,12 @@ import org.fisco.bcos.web3j.crypto.Keys;
 import org.fisco.bcos.web3j.protocol.Web3j;
 import org.fisco.bcos.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.fisco.bcos.web3j.tuples.generated.Tuple2;
+import org.fisco.bcos.web3j.tuples.generated.Tuple7;
 import org.fisco.bcos.web3j.tx.gas.StaticGasProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Random;
 
 import static org.fisco.bcos.constants.GasConstants.GAS_LIMIT;
 import static org.fisco.bcos.constants.GasConstants.GAS_PRICE;
@@ -28,6 +28,8 @@ public class Web3Config {
     private IPFSConfig ipfs;
 
     private Role role;
+
+    private Food food;
 
     public InfoTable assetInit() throws Exception {
         // 初始化Web3j对象
@@ -48,26 +50,141 @@ public class Web3Config {
 
     }
 
-    public TransactionReceipt suppInsert(String roleId,String roleName,String resultHash) throws Exception {
+    public TransactionReceipt suppInsert(String suppId,String suppName,String resultHash) throws Exception {
 
         InfoTable asset = assetInit();
 
-        TransactionReceipt suppInsert = asset.suppInsert(roleId,roleName,resultHash).send();
+        TransactionReceipt suppInsert = asset.suppInsert(suppId,suppName,resultHash).send();
         return suppInsert;
     }
 
-    public Role suppSelect (String roleId) throws Exception{
+    public Role suppSelect (String suppId) throws Exception{
 
         InfoTable asset = assetInit();
 
-        Tuple2<byte[],byte[]> resultSelect = asset.suppSelect(roleId).send();
+        Tuple2<byte[],byte[]> resultSelect = asset.suppSelect(suppId).send();
 
 
-        role.setRoleId(roleId);
+        role.setRoleId(suppId);
         role.setRoleName(new String(resultSelect.getValue1()));
         role.setFile(new String(resultSelect.getValue2()));
 
         return role;
+    }
+
+    public TransactionReceipt transInsert(String transId, String carNum, String resultHash) throws Exception {
+
+        InfoTable asset = assetInit();
+
+        TransactionReceipt transInsert = asset.transInsert(transId, carNum, resultHash).send();
+
+        return transInsert;
+    }
+
+    public Role transSelect(String transId) throws Exception{
+
+        InfoTable asset = assetInit();
+
+        Tuple2<byte[],byte[]> resultSelect = asset.transSelect(transId).send();
+
+        role.setRoleId(transId);
+        role.setRoleName(new String(resultSelect.getValue1()));
+        role.setFile(new String(resultSelect.getValue2()));
+
+        return role;
+
+    }
+
+    public TransactionReceipt retailInsert(String retailId, String retailName, String resultHash) throws Exception {
+
+        InfoTable asset = assetInit();
+
+        TransactionReceipt retailInsert = asset.retailInsert(retailId, retailName, resultHash).send();
+
+        return retailInsert;
+
+    }
+
+    public Role retailSelect(String retailId) throws Exception {
+
+        InfoTable asset = assetInit();
+
+        Tuple2<byte[],byte[]> resultSelect = asset.retailSelect(retailId).send();
+
+        role.setRoleId(retailId);
+        role.setRoleName(new String(resultSelect.getValue1()));
+        role.setFile(new String(resultSelect.getValue2()));
+
+        return role;
+
+    }
+
+    public TransactionReceipt threePartyInsert(String threePartyId, String threePartyName, String resultHash) throws Exception {
+
+        InfoTable asset = assetInit();
+
+        TransactionReceipt threePartyInsert = asset.threePartyInsert(threePartyId, threePartyName, resultHash).send();
+
+        return threePartyInsert;
+    }
+
+    public Role threePartySelect (String threePartyId) throws Exception {
+
+        InfoTable asset = assetInit();
+
+        Tuple2<byte[],byte[]> resultSelect = asset.threePartySelect(threePartyId).send();
+
+        role.setRoleId(threePartyId);
+        role.setRoleName(new String(resultSelect.getValue1()));
+        role.setFile(new String(resultSelect.getValue2()));
+
+        return role;
+
+    }
+
+    public Food foodSelect(String foodNum) throws Exception {
+
+        InfoTable asset = assetInit();
+
+        Tuple7<byte[],byte[],byte[],byte[],byte[],byte[],byte[]> resultSelect = asset.foodSelect(foodNum).send();
+
+        food.setFoodNum(foodNum);
+        food.setSuppId(new String(resultSelect.getValue1()));
+        food.setTransId(new String(resultSelect.getValue2()));
+        food.setRetailId(new String(resultSelect.getValue3()));
+        food.setOutDate(new String(resultSelect.getValue4()));
+        food.setIngredient(new String(resultSelect.getValue5()));
+        food.setOriginal(new String(resultSelect.getValue6()));
+        food.setFoodImg(new String(resultSelect.getValue7()));
+
+        return food;
+    }
+
+    public Role pointThreeParty() throws Exception {
+
+        Random random = new Random(1024);
+        int threePartyIdInt = random.nextInt(3);
+        String threePartyId = String.valueOf(threePartyIdInt);
+
+        InfoTable asset = assetInit();
+
+        Tuple2<byte[],byte[]> resultSelect = asset.threePartySelect(threePartyId).send();
+
+        role.setRoleId(threePartyId);
+        role.setRoleName(new String(resultSelect.getValue1()));
+        role.setFile(new String(resultSelect.getValue2()));
+
+        return role;
+
+    }
+
+    public TransactionReceipt foodDel(String foodNum) throws Exception {
+
+        InfoTable asset = assetInit();
+
+        TransactionReceipt result = asset.foodDel(foodNum).send();
+
+        return result;
     }
 
 }

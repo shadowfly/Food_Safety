@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 import "./Table.sol";
-
+//Suppose: One key reflects one record; It meets the reality of food safety.
 contract InfoTable {
     event foodInsertEvent(int food);
     event suppInsertEvent(int supp);
@@ -21,7 +21,7 @@ contract InfoTable {
     //Food Init
     function createFood() private {
         TableFactory tf = TableFactory(0x1001);
-        tf.createTable("food_info","foodNum","suppId,transId,retailId,outDate,ingredient,temp,origin,foodImg,foodState");
+        tf.createTable("food_info","foodNum","suppId,transId,retailId,outDate,ingredient,origin,foodImg");
     }
     function openFoodTab() private returns(Table) {
         TableFactory tf = TableFactory(0x1001);
@@ -194,12 +194,16 @@ contract InfoTable {
         Entry threePartyEntry = threePartyEntries.get(0);
         return (threePartyEntry.getBytes32("threePartyName"),threePartyEntry.getBytes32("threePartyImg"));
     }
-
-    //Point out a three party randomly.
-    //Suppose the scale of the three party = 3.
-    function pointThreeParty() public returns(uint256) {
-        uint256 threePartyId = uint256(keccak256(now))%3;
-        return threePartyId;
+    //Select food info.
+    function foodSelect(string foodNum) public constant returns(bytes32,bytes32,bytes32,bytes32,bytes32,bytes32,bytes32){
+        Table foodTab = openFoodTab();
+        Condition foodCond = foodTab.newCondition();
+        foodCond.EQ("foodNum",foodNum);
+        Entries foodEntries = foodTab.select(foodNum,foodCond);
+        Entry foodEntry = foodEntries.get(0);
+        return (foodEntry.getBytes32("suppId"),foodEntry.getBytes32("transId"),foodEntry.getBytes32("retailId")
+        ,foodEntry.getBytes32("outDate"),foodEntry.getBytes32("ingredient"),foodEntry.getBytes32("origin")
+        ,foodEntry.getBytes32("foodImg"));
     }
     //Delete Food Information.
     //After the customer buys the food, he can choose to operate this function to prevent from so many informations in the table.

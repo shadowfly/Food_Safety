@@ -19,7 +19,7 @@ class Roles extends Component {
     state = {
         collapsed:false,
         funcSelect:0,
-        subContent:<ApplyToChain />,
+        subContent:<FoodInfo />,
     }
 
     onCollapse = collapsed => {
@@ -99,7 +99,7 @@ class Roles extends Component {
                 </SubMenu>
                 <Menu.Item key="foodInfo">
                   <Icon type="database" />
-                  <span>食品信息</span>
+                  <span>信息查询</span>
                 </Menu.Item>
                 <Menu.Item key="check">
                   <Icon type="medicine-box" />
