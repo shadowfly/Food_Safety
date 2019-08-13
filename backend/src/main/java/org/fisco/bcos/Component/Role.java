@@ -1,5 +1,7 @@
 package org.fisco.bcos.Component;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class Role {
 
     private String roleId;
@@ -37,5 +39,14 @@ public class Role {
 
     public void setFile(String file) {
         this.file = file;
+    }
+
+    public String resultJSON(Role role) {
+        JSONObject returnResult = new JSONObject();
+        returnResult.put("roleId",role.getRoleId());
+        returnResult.put("roleName",role.getRoleName());
+        returnResult.put("roleImg",role.getFile());
+
+        return returnResult.toJSONString();
     }
 }

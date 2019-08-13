@@ -32,20 +32,20 @@ public class IPFSConfig {
         return resultHash;
     }
 
-    public String download(String resultHash) throws Exception {
-        //创建节点
-        IPFS ipfs =new IPFS("/ip4/127.0.0.1/tcp/5001");
-        //初始化
-        ipfs.refs.local();
-
-        //通过hash值查询文件内容
-        Multihash filePointer = Multihash.fromBase58(resultHash);
-        byte[] fileContents = ipfs.cat(filePointer);
-
-        String result = new String(fileContents);
-
-        return result;
-    }
+//    public String download(String resultHash) throws Exception {
+//        //创建节点
+//        IPFS ipfs =new IPFS("/ip4/127.0.0.1/tcp/5001");
+//        //初始化
+//        ipfs.refs.local();
+//
+//        //通过hash值查询文件内容
+//        Multihash filePointer = Multihash.fromBase58(resultHash);
+//        byte[] fileContents = ipfs.cat(filePointer);
+//
+//        String result = new String(fileContents);
+//
+//        return result;
+//    }
 
     public byte[] toByteArray (Object obj) {
         byte[] bytes = null;

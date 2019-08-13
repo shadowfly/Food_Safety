@@ -12,7 +12,7 @@ class RetailAddForm extends Component {
                         rules: [{ required: true, message: 'Please input foodum!' }],
                     })(<Input/>)}
                 </Form.Item>
-                <Form.Item label="零售编号">
+                <Form.Item label="商家编号">
                     {getFieldDecorator('retailId', {
                         rules: [{ required: true, message: 'Please input retailId!' }],
                     })(<Input/>)}

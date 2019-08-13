@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Form, Upload, Button, message, Radio, Input, Icon,} from 'antd';
 import "../css/ApplyToChain.css";
+import formData2JSON from '../utils/formData2JSON';
 
 class ApplyToChain_Form extends Component {
 
@@ -22,18 +23,11 @@ class ApplyToChain_Form extends Component {
         this.setState({
           uploading: true,
         });    
-        var formJSON = {}
-        for(var pair of formData.entries()) {
-          console.log(pair[0]+ ', '+ pair[1]); 
-          formJSON[pair[0]] = pair[1];
-       } 
+        var formJSON = formData2JSON(formData)
         fetch('http://localhost:8080/roleInsert',{
           method:'POST',
           mode:'cors',
-          body:JSON.stringify(formJSON),
-          headers: new Headers({
-            'Content-Type': 'application/json',
-          })
+          body:formJSON,
         })
         .then(res => res.json())
         .catch(err => console.log(err))
@@ -43,7 +37,7 @@ class ApplyToChain_Form extends Component {
           })
           console.log(res)
           this.props.form.resetFields()
-          message.success("图片hash地址为："+res.data);
+          message.success("上传成功");
         })
       };
 

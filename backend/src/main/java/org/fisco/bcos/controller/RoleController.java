@@ -1,7 +1,6 @@
 package org.fisco.bcos.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import groovy.lang.Tuple9;
 import org.fisco.bcos.Component.Role;
 import org.fisco.bcos.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,16 +50,5 @@ public class RoleController {
 
     }
 
-    @ResponseBody
-    @GetMapping(value="/roleSelect")
-    public String getJSONData(@RequestBody String roleId) {
-
-        JSONObject returnResult = new JSONObject();
-        returnResult.put("msg","success");
-        returnResult.put("method","@ResponseBody");
-        returnResult.put("data","xiaomingnihao");
-
-        return returnResult.toJSONString();
-    }
 }
 

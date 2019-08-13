@@ -2,7 +2,7 @@ package org.fisco.bcos.controller;
 
 import org.fisco.bcos.Component.Food;
 import org.fisco.bcos.Component.Role;
-import org.fisco.bcos.contract.InfoTable;
+import org.fisco.bcos.asset.contract.InfoTable;
 import org.fisco.bcos.web3j.crypto.Credentials;
 import org.fisco.bcos.web3j.crypto.Keys;
 import org.fisco.bcos.web3j.protocol.Web3j;
@@ -27,8 +27,6 @@ public class Web3Config {
     @Autowired
     private IPFSConfig ipfs;
 
-    private Role role;
-
     private Food food;
 
     public InfoTable assetInit() throws Exception {
@@ -43,7 +41,7 @@ public class Web3Config {
         //InfoTable asset = InfoTable.deploy(web3, credentials, new StaticGasProvider(GAS_PRICE, GAS_LIMIT)).send();
 
         //根据地址加载合约
-        String contractAddress = "0x6f5666c2073abbf49132096d436c29c644492077";
+        String contractAddress = "0x42792b02791c091b426163a550a2ba7509ab4a50";
         InfoTable asset = InfoTable.load(contractAddress, web3, credentials, new StaticGasProvider(GAS_PRICE, GAS_LIMIT));
 
         return asset;
@@ -64,7 +62,9 @@ public class Web3Config {
 
         Tuple2<byte[],byte[]> resultSelect = asset.suppSelect(suppId).send();
 
+        Role role = new Role();
 
+        role.setRole("supp");
         role.setRoleId(suppId);
         role.setRoleName(new String(resultSelect.getValue1()));
         role.setFile(new String(resultSelect.getValue2()));
@@ -87,6 +87,8 @@ public class Web3Config {
 
         Tuple2<byte[],byte[]> resultSelect = asset.transSelect(transId).send();
 
+        Role role = new Role();
+        role.setRole("trans");
         role.setRoleId(transId);
         role.setRoleName(new String(resultSelect.getValue1()));
         role.setFile(new String(resultSelect.getValue2()));
@@ -111,6 +113,8 @@ public class Web3Config {
 
         Tuple2<byte[],byte[]> resultSelect = asset.retailSelect(retailId).send();
 
+        Role role = new Role();
+        role.setRole("retail");
         role.setRoleId(retailId);
         role.setRoleName(new String(resultSelect.getValue1()));
         role.setFile(new String(resultSelect.getValue2()));
@@ -134,6 +138,8 @@ public class Web3Config {
 
         Tuple2<byte[],byte[]> resultSelect = asset.threePartySelect(threePartyId).send();
 
+        Role role = new Role();
+        role.setRole("threeParty");
         role.setRoleId(threePartyId);
         role.setRoleName(new String(resultSelect.getValue1()));
         role.setFile(new String(resultSelect.getValue2()));
@@ -154,8 +160,8 @@ public class Web3Config {
         food.setRetailId(new String(resultSelect.getValue3()));
         food.setOutDate(new String(resultSelect.getValue4()));
         food.setIngredient(new String(resultSelect.getValue5()));
-        food.setOriginal(new String(resultSelect.getValue6()));
         food.setFoodImg(new String(resultSelect.getValue7()));
+        food.setTemp(new String(resultSelect.getValue6()));
 
         return food;
     }
@@ -170,6 +176,8 @@ public class Web3Config {
 
         Tuple2<byte[],byte[]> resultSelect = asset.threePartySelect(threePartyId).send();
 
+        Role role = new Role();
+        role.setRole("threeParty");
         role.setRoleId(threePartyId);
         role.setRoleName(new String(resultSelect.getValue1()));
         role.setFile(new String(resultSelect.getValue2()));

@@ -21,7 +21,7 @@ contract InfoTable {
     //Food Init
     function createFood() private {
         TableFactory tf = TableFactory(0x1001);
-        tf.createTable("food_info","foodNum","suppId,transId,retailId,outDate,ingredient,origin,foodImg");
+        tf.createTable("food_info","foodNum","suppId,transId,retailId,outDate,ingredient,temp,foodImg");
     }
     function openFoodTab() private returns(Table) {
         TableFactory tf = TableFactory(0x1001);
@@ -81,7 +81,6 @@ contract InfoTable {
         foodEntry.set("suppId",suppId);
         foodEntry.set("outDate",outDate);
         foodEntry.set("ingredient",ingredient);
-        foodEntry.set("origin",origin);
         foodEntry.set("foodImg",foodImg);
         int256 foodCount = foodTab.insert(foodNum,foodEntry);
         return foodCount;
@@ -201,9 +200,7 @@ contract InfoTable {
         foodCond.EQ("foodNum",foodNum);
         Entries foodEntries = foodTab.select(foodNum,foodCond);
         Entry foodEntry = foodEntries.get(0);
-        return (foodEntry.getBytes32("suppId"),foodEntry.getBytes32("transId"),foodEntry.getBytes32("retailId")
-        ,foodEntry.getBytes32("outDate"),foodEntry.getBytes32("ingredient"),foodEntry.getBytes32("origin")
-        ,foodEntry.getBytes32("foodImg"));
+        return (foodEntry.getBytes32("suppId"),foodEntry.getBytes32("transId"),foodEntry.getBytes32("retailId"),foodEntry.getBytes32("outDate"),foodEntry.getBytes32("ingredient"),foodEntry.getBytes32("temp"),foodEntry.getBytes32("foodImg"));
     }
     //Delete Food Information.
     //After the customer buys the food, he can choose to operate this function to prevent from so many informations in the table.

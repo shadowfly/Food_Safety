@@ -10,6 +10,7 @@ public class Food {
     private String ingredient;
     private String original;
     private String foodImg;
+    private String temp;
 
     public String getFoodNum() {
         return foodNum;
@@ -73,5 +74,13 @@ public class Food {
 
     public void setFoodImg(String foodImg) {
         this.foodImg = foodImg;
+    }
+
+    public String getTemp() {
+        return temp;
+    }
+
+    public void setTemp(String temp) {
+        this.temp = temp;
     }
 }
