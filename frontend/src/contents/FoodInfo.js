@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import {Timeline, Icon, Tag,Form,Radio,Input,Button} from 'antd';
+import {Timeline, Icon, Tag,Form,Radio,Input,Button,message} from 'antd';
 import formData2JSON from '../utils/formData2JSON';
+import infoTimeline from './InfoTimeline';
+import InfoTimeline from './InfoTimeline';
 
 class FoodInfoForm extends Component {
 
@@ -10,6 +12,7 @@ class FoodInfoForm extends Component {
         roleId:'',
         roleName:'',
         roleImg:'',
+        foodTip:0,
     }
 
     handleInput = (e) => {
@@ -27,30 +30,37 @@ class FoodInfoForm extends Component {
         formData.append('value', values.num);
         formData.append('role',values.role);
         var formJSON = formData2JSON(formData)
-        if (values.role !== "food") {
-            fetch('http://localhost:8080/'+values.role+'Select',{
-                method:'POST',
-                mode:'cors',
-                body:formJSON,
-                headers: new Headers({
-                  'Content-Type': 'application/json',
-                })
+        fetch('http://localhost:8080/'+values.role+'Select',{
+            method:'POST',
+            mode:'cors',
+            body:formJSON,
+            headers: new Headers({
+              'Content-Type': 'application/json',
+            })
+          })
+          .then(res => res.json())
+          .catch(err => console.log(err))
+          .then(res => {
+            //TODO
+            if(values.role !== "food") {
+              this.setState({
+                roleId:res.roleId,
+                roleName:res.roleName,
+                roleImg:res.roleImg,
+                foodTip:0
               })
-              .then(res => res.json())
-              .catch(err => console.log(err))
-              .then(res => {
-                //TODO
-                this.setState({
-                    roleId:res.roleId,
-                    roleName:res.roleName,
-                    roleImg:res.roleImg
-                })
-                this.props.form.resetFields()
+            } else {
+              this.setState({
+                foodTip:1,
+                roleId:'',
+                roleName:'',
+                roleImg:'',
               })
-        } else {
-          //TODO
-            console.log("food")
-        }
+            }
+            
+            this.props.form.resetFields()
+            message.success("查询成功")
+          })
     }
 
     handleSubmit = (e) => {
@@ -62,9 +72,15 @@ class FoodInfoForm extends Component {
         });
     }
 
+    handleModalCancel = () => {
+      this.setState({
+        foodTip:0
+      })
+    }
+
     render() {
         const { getFieldDecorator } = this.props.form;
-        const {roleId,roleName,roleImg} = this.state;
+        const {roleId,roleName,roleImg,foodTip} = this.state;
         return(
             <div className="divForm">
                 <Form>
@@ -100,26 +116,10 @@ class FoodInfoForm extends Component {
                     <p style={{marginTop:16}}>{roleId}</p>
                     <p>{roleName}</p>
                     <p>{roleImg}</p>
+                    <InfoTimeline visible={foodTip == 1?true:false} handleModalCancel={this.handleModalCancel}/>
                 </Form>
             </div>
-            // <div style={{marginTop:80,fontWeight:'bold'}}>
-            //     <Timeline mode="alternate">
-            //         <Timeline.Item color="green">Producting</Timeline.Item>
-            //         <Timeline.Item color="red">Supply</Timeline.Item>
-            //         <Timeline.Item color="red">
-            //         TransportTransportTransportTransportT
-            //         ransportTransportTransportTransport
-            //         TransportTransportTransportTransport
-            //         TransportTransportTransportTransport
-            //         TransportTransportTransportTransportTransport</Timeline.Item>
-            //         <Timeline.Item color="red">Retail</Timeline.Item>
-            //         <Timeline.Item color="red">Finish</Timeline.Item>
-            //     </Timeline> 
-
-            //     The status displaying <Tag color="green">green</Tag> means that the procedure has finished.
-            //     <br/>
-            //     While the <Tag color="red">red</Tag> means that the procedure is lack of information.
-            // </div>
+           
         )
     }
 }

@@ -10,6 +10,7 @@ import '../image/hotdog.png';
 import '../image/slogan.png';
 import Home from './Home';
 import FoodInfo from '../contents/FoodInfo';
+import Supervise from '../contents/Supervise';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -28,7 +29,6 @@ class Roles extends Component {
     }
 
     menuClick = (selectedInfo) => {
-      const {subMenuSelect} = this.state; 
       console.log(selectedInfo.key)
       switch(selectedInfo.key) {
         case "apply":
@@ -38,7 +38,7 @@ class Roles extends Component {
           this.setState({subContent:<FoodInfo />})
           break;
         case "check":
-          this.setState({subContent:<AddFoodInfo />})
+          this.setState({subContent:<Supervise />})
           break;
         case "warning":
           this.setState({subContent:<AddFoodInfo />})
