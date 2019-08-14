@@ -44,7 +44,7 @@ public class RoleController {
 
         JSONObject returnResult = new JSONObject();
         returnResult.put("msg","success");
-        returnResult.put("method","@ResponseBody");
+        returnResult.put("method","roleInsert");
         returnResult.put("data",resultHash);
 
         return returnResult.toJSONString();

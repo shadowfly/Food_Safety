@@ -10,10 +10,14 @@ class Supervise extends Component {
     }
 
     handleSubmit = () => {
-        this.setState({
-            threePartyId:'id',
-            threePartyName:'name',
-            threePartyImage:'image'
+        fetch('http://localhost:8080/pointThreeParty')
+          .then(res => res.json())
+          .then(data => {
+            this.setState({
+                threePartyId:data.roleId,
+                threePartyName:data.roleName,
+                threePartyImage:data.roleImg
+            })
         })
     }
 

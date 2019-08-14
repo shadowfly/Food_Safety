@@ -21,6 +21,7 @@ public class IPFSConfig {
         ipfs.refs.local();
         //对象转化byte数组
         //添加文件并返回hash值
+        System.out.println();
         NamedStreamable.ByteArrayWrapper file = new NamedStreamable.ByteArrayWrapper("hello.txt",toByteArray(rawFile));
         MerkleNode addResult = ipfs.add(file).get(0);
 

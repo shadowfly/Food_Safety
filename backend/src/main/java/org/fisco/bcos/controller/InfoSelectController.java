@@ -74,10 +74,9 @@ public class InfoSelectController {
         return "delete food info successfully";
     }
 
-    //TODO
     @ResponseBody
     @CrossOrigin("http://localhost:3000")
-    @PostMapping(value="/pointThreeParty",produces = "application/json;charset=UTF-8")
+    @GetMapping(value="/pointThreeParty")
     public String pointThreeParty() throws Exception {
 
         role = web3.pointThreeParty();

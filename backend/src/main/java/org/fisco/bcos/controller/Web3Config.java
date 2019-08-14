@@ -40,7 +40,7 @@ public class Web3Config {
         Credentials credentials = Credentials.create(Keys.createEcKeyPair());
 
         //首次部署合约
-        //InfoTable asset = InfoTable.deploy(web3, credentials, new StaticGasProvider(GAS_PRICE, GAS_LIMIT)).send();
+//        InfoTable asset = InfoTable.deploy(web3, credentials, new StaticGasProvider(GAS_PRICE, GAS_LIMIT)).send();
 
         //根据地址加载合约
         String contractAddress = "0x02bc24528a907aead7774d4c44d4b7233fba31b1";
@@ -76,6 +76,16 @@ public class Web3Config {
         return role;
     }
 
+    public TransactionReceipt suppAdd(String foodNum,String suppId,String outDate,String ingredient,String origin,String foodImg) throws Exception {
+
+        InfoTable asset = assetInit();
+
+        TransactionReceipt suppAdd = asset.suppAdd(foodNum, suppId, outDate, ingredient, origin, foodImg).send();
+
+        return suppAdd;
+
+    }
+
     public TransactionReceipt transInsert(String transId, String carNum, String resultHash) throws Exception {
 
         InfoTable asset = assetInit();
@@ -98,6 +108,16 @@ public class Web3Config {
         role.setFile(new String(resultSelect.getValue2()));
 
         return role;
+
+    }
+
+    public TransactionReceipt transAdd(String foodNum,String transId,String temp) throws Exception {
+
+        InfoTable asset = assetInit();
+
+        TransactionReceipt transAdd = asset.transAdd(foodNum, transId, temp).send();
+
+        return transAdd;
 
     }
 
@@ -124,6 +144,16 @@ public class Web3Config {
         role.setFile(new String(resultSelect.getValue2()));
 
         return role;
+
+    }
+
+    public TransactionReceipt retailAdd(String foodNum,String retailId) throws Exception {
+
+        InfoTable asset = assetInit();
+
+        TransactionReceipt retailAdd = asset.retailAdd(foodNum, retailId).send();
+
+        return retailAdd;
 
     }
 

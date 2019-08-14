@@ -20,7 +20,7 @@ class Roles extends Component {
     state = {
         collapsed:false,
         funcSelect:0,
-        subContent:<FoodInfo />,
+        subContent:<Home />,   
     }
 
     onCollapse = collapsed => {

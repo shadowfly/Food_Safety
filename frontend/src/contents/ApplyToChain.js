@@ -122,7 +122,7 @@ class ApplyToChain_Form extends Component {
                           <Radio value="trans">物流公司</Radio>
                           <br />
                           <Radio value="retail">零售商</Radio>
-                          <Radio value="superwise">监管机构</Radio>
+                          <Radio value="supervise">监管机构</Radio>
                           </Radio.Group>,
                         )}
                     </Form.Item>
