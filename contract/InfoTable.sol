@@ -3,12 +3,6 @@ pragma solidity ^0.4.24;
 import "./Table.sol";
 //Suppose: One key reflects one record; It meets the reality of food safety.
 contract InfoTable {
-    event foodInsertEvent(int food);
-    event suppInsertEvent(int supp);
-    event transInsertEvent(int trans);
-    event retailInsertEvent(int retail);
-    event threePartyInsertEvent(int threeParty);
-    event infoDeleteEvent(int foodNum);
 
     constructor() public {
         createFood();
@@ -17,7 +11,6 @@ contract InfoTable {
         createRetail();
         createThreeParty();
     }
-
     //Food Init
     function createFood() private {
         TableFactory tf = TableFactory(0x1001);
@@ -28,7 +21,6 @@ contract InfoTable {
         Table table = tf.openTable("food_info");
         return table;
     }
-
     //Supplier Init
     function createSupp() private {
         TableFactory tf = TableFactory(0x1001);
@@ -39,7 +31,6 @@ contract InfoTable {
         Table table = tf.openTable("supp_info");
         return table;
     }
-
     //Transport Init
     function createTrans() private {
         TableFactory tf = TableFactory(0x1001);
@@ -50,7 +41,6 @@ contract InfoTable {
         Table table = tf.openTable("trans_info");
         return table;
     }
-
     //Retailer Init
     function createRetail() private {
         TableFactory tf = TableFactory(0x1001);
@@ -61,11 +51,10 @@ contract InfoTable {
         Table table = tf.openTable("retail_info");
         return table;
     }
-
     //ThreePartyInit
     function createThreeParty() private {
         TableFactory tf = TableFactory(0x1001);
-        tf.createTable("threeParty_info","threePartyId","threePartyName,threePartyImg");
+        tf.createTable("threeParty_info","threePartyId","threePartyName,threePartyImg,company,result");
     }
     function openThreePartyTab() private returns(Table) {
         TableFactory tf = TableFactory(0x1001);
@@ -74,7 +63,7 @@ contract InfoTable {
     }
 
     //Add food info.
-    function suppAdd(string foodNum,string suppId,string outDate,string ingredient,string origin,string foodImg) public returns(int256) {
+    function suppAdd(string foodNum,string suppId,string outDate,string ingredient,string origin,string foodImg) public {
         Table foodTab = openFoodTab();
         Entry foodEntry = foodTab.newEntry();
         foodEntry.set("foodNum",foodNum);
@@ -82,81 +71,71 @@ contract InfoTable {
         foodEntry.set("outDate",outDate);
         foodEntry.set("ingredient",ingredient);
         foodEntry.set("foodImg",foodImg);
-        int256 foodCount = foodTab.insert(foodNum,foodEntry);
-        return foodCount;
+        foodTab.insert(foodNum,foodEntry);
     }
-    function transAdd(string foodNum,string transId,string temp) public returns(int256) {
+    function transAdd(string foodNum,string transId,string temp) public {
         Table foodTab = openFoodTab();
         Entry foodEntry = foodTab.newEntry();
         foodEntry.set("transId",transId);
         foodEntry.set("temp",temp);
         Condition cond = foodTab.newCondition();
         cond.EQ("foodNum", foodNum);
-        int256 foodCount = foodTab.update(foodNum,foodEntry,cond);
-        return foodCount;
+        foodTab.update(foodNum,foodEntry,cond);
     }
-    function retailAdd(string foodNum,string retailId) public returns(int256) {
+    function retailAdd(string foodNum,string retailId) public {
         Table foodTab = openFoodTab();
         Entry foodEntry = foodTab.newEntry();
         foodEntry.set("retailId",retailId);
         Condition cond = foodTab.newCondition();
         cond.EQ("foodNum", foodNum);
-        int256 foodCount = foodTab.update(foodNum,foodEntry,cond);
-        return foodCount;
+        foodTab.update(foodNum,foodEntry,cond);
     }
     //Add supplier info.
     //Use the fisco autority contorl to guarantee that only the suppliers can get access to this table.
-    function suppInsert(string suppId,string suppName,string suppImg) public returns(int256) {
+    function suppInsert(string suppId,string suppName,string suppImg) public {
         Table suppTab = openSuppTab();
         Entry suppEntry = suppTab.newEntry();
         suppEntry.set("suppId",suppId);
         suppEntry.set("suppName",suppName);
         suppEntry.set("suppImg",suppImg);
-        int256 suppCount = suppTab.insert(suppId,suppEntry);
-        emit suppInsertEvent(suppCount);
-        return suppCount;
+        suppTab.insert(suppId,suppEntry);
     }
 
-    //Add transport tablle.
+    //Add transport table.
     //Use the fisco autority contorl to guarantee that only the drivers can get access to this table.
-    function transInsert(string transId,string carNum,string driverImg) public returns(int256) {
+    function transInsert(string transId,string carNum,string driverImg) public {
         Table transTab = openTransTab();
         Entry transEntry = transTab.newEntry();
         transEntry.set("transId",transId);
         transEntry.set("carNum",carNum);
         transEntry.set("driverImg",driverImg);
-        int256 transCount = transTab.insert(transId,transEntry);
-        emit transInsertEvent(transCount);
-        return transCount;
+        transTab.insert(transId,transEntry);
     }
 
-    //Add retailer tablle.
+    //Add retailer table.
     //Use the fisco autority contorl to guarantee that only the retailers can get access to this table.
-    function retailInsert(string retailId,string retailName,string retailImg) public returns(int256) {
+    function retailInsert(string retailId,string retailName,string retailImg) public {
         Table retailTab = openRetailTab();
         Entry retailEntry = retailTab.newEntry();
         retailEntry.set("retailId",retailId);
         retailEntry.set("retailName",retailName);
         retailEntry.set("retailImg",retailImg);
-        int256 retailCount = retailTab.insert(retailId,retailEntry);
-        emit retailInsertEvent(retailCount);
-        return retailCount;
+        retailTab.insert(retailId,retailEntry);
     }
 
-    //Add three party tablle.
+    //Add three party table.
     //Use the fisco autority contorl to guarantee that only the supervises can get access to this table.
-    function threePartyInsert(string threePartyId,string threePartyName,string threePartyImg) public returns(int256) {
+    function threePartyInsert(string threePartyId,string threePartyName,string threePartyImg,string company,string result) public {
         Table threePartyTab = openThreePartyTab();
         Entry threePartyEntry = threePartyTab.newEntry();
         threePartyEntry.set("threePartyId",threePartyId);
         threePartyEntry.set("threePartyName",threePartyName);
         threePartyEntry.set("threePartyImg",threePartyImg);
-        int256 threePartyCount = threePartyTab.insert(threePartyId,threePartyEntry);
-        emit threePartyInsertEvent(threePartyCount);
-        return threePartyCount;
+        threePartyEntry.set("company",company);
+        threePartyEntry.set("result",result);
+        threePartyTab.insert(threePartyId,threePartyEntry);
     }
-
-    //Select supplier tablle.
+    //Select supplier table.
     function suppSelect(string suppId) public constant returns(bytes32,bytes32) {
         Table suppTab = openSuppTab();
         Condition suppCond = suppTab.newCondition();
@@ -185,15 +164,15 @@ contract InfoTable {
         return (retailEntry.getBytes32("retailName"),retailEntry.getBytes32("retailImg"));        
     }
     //Select three party table.
-    function threePartySelect(string threePartyId) public constant returns(bytes32,bytes32) {
+    function threePartySelect(string threePartyId) public constant returns(bytes32,bytes32,bytes32,bytes32) {
         Table threePartyTab = openThreePartyTab();
         Condition threePartyCond = threePartyTab.newCondition();
         threePartyCond.EQ("threePartyId", threePartyId);
         Entries threePartyEntries = threePartyTab.select(threePartyId,threePartyCond);
         Entry threePartyEntry = threePartyEntries.get(0);
-        return (threePartyEntry.getBytes32("threePartyName"),threePartyEntry.getBytes32("threePartyImg"));
+        return (threePartyEntry.getBytes32("threePartyName"),threePartyEntry.getBytes32("threePartyImg"),threePartyEntry.getBytes32("company"),threePartyEntry.getBytes32("result"));
     }
-    //Select food info.
+    //Select latest food info.
     function foodSelect(string foodNum) public constant returns(bytes32,bytes32,bytes32,bytes32,bytes32,bytes32,bytes32){
         Table foodTab = openFoodTab();
         Condition foodCond = foodTab.newCondition();
@@ -201,14 +180,5 @@ contract InfoTable {
         Entries foodEntries = foodTab.select(foodNum,foodCond);
         Entry foodEntry = foodEntries.get(0);
         return (foodEntry.getBytes32("suppId"),foodEntry.getBytes32("transId"),foodEntry.getBytes32("retailId"),foodEntry.getBytes32("outDate"),foodEntry.getBytes32("ingredient"),foodEntry.getBytes32("temp"),foodEntry.getBytes32("foodImg"));
-    }
-    //Delete Food Information.
-    //After the customer buys the food, he can choose to operate this function to prevent from so many informations in the table.
-    function foodDel(string foodNum) public returns(int) {
-        Table foodTab = openFoodTab();
-        Condition foodCond = foodTab.newCondition();
-        foodCond.EQ("foodNum",foodNum);
-        int count = foodTab.remove(foodNum,foodCond);
-        return count;
     }
 }
