@@ -164,13 +164,20 @@ contract InfoTable {
         return (retailEntry.getBytes32("retailName"),retailEntry.getBytes32("retailImg"));        
     }
     //Select three party table.
-    function threePartySelect(string threePartyId) public constant returns(bytes32,bytes32,bytes32,bytes32) {
+    function threePartySelect(string threePartyId) public constant returns(bytes32[],bytes32[],bytes32[]) {
         Table threePartyTab = openThreePartyTab();
         Condition threePartyCond = threePartyTab.newCondition();
-        threePartyCond.EQ("threePartyId", threePartyId);
         Entries threePartyEntries = threePartyTab.select(threePartyId,threePartyCond);
-        Entry threePartyEntry = threePartyEntries.get(0);
-        return (threePartyEntry.getBytes32("threePartyName"),threePartyEntry.getBytes32("threePartyImg"),threePartyEntry.getBytes32("company"),threePartyEntry.getBytes32("result"));
+        bytes32[] memory name_list = new bytes32[](uint256(threePartyEntries.size()));
+        bytes32[] memory company_list = new bytes32[](uint256(threePartyEntries.size()));
+        bytes32[] memory result_list = new bytes32[](uint256(threePartyEntries.size()));
+        for(int i=0; i<threePartyEntries.size(); ++i) {
+            Entry entry = threePartyEntries.get(i);
+            name_list[uint256(i)] = entry.getBytes32("threePartyName");
+            company_list[uint256(i)] = entry.getBytes32("company");
+            result_list[uint256(i)] = entry.getBytes32("result");
+        }
+        return (name_list,company_list,result_list);
     }
     //Select latest food info.
     function foodSelect(string foodNum) public constant returns(bytes32,bytes32,bytes32,bytes32,bytes32,bytes32,bytes32){
