@@ -54,17 +54,17 @@ public class InfoSelectController {
         return role.resultJSON(role);
     }
 
-    @ResponseBody
-    @CrossOrigin("http://localhost:3000")
-    @PostMapping(value="/superviseSelect",produces = "application/json;charset=UTF-8")
-    public String getThreePartyInfo(@RequestBody InfoSelect info) throws Exception {
-
-        String value = info.getValue();
-
-        role = web3.threePartySelect(value);
-
-        return role.resultJSON(role);
-    }
+//    @ResponseBody
+//    @CrossOrigin("http://localhost:3000")
+//    @PostMapping(value="/superviseSelect",produces = "application/json;charset=UTF-8")
+//    public String getThreePartyInfo(@RequestBody InfoSelect info) throws Exception {
+//
+//        String value = info.getValue();
+//
+//        role = web3.threePartySelect(value);
+//
+//        return role.resultJSON(role);
+//    }
 
     @ResponseBody
     @CrossOrigin("http://localhost:3000")
@@ -74,17 +74,16 @@ public class InfoSelectController {
         return "delete food info successfully";
     }
 
-    @ResponseBody
-    @CrossOrigin("http://localhost:3000")
-    @GetMapping(value="/pointThreeParty")
-    public String pointThreeParty() throws Exception {
+//    @ResponseBody
+//    @CrossOrigin("http://localhost:3000")
+//    @GetMapping(value="/pointThreeParty")
+//    public String pointThreeParty() throws Exception {
+//
+//        role = web3.pointThreeParty();
+//
+//        return role.resultJSON(role);
+//    }
 
-        role = web3.pointThreeParty();
-
-        return role.resultJSON(role);
-    }
-
-    //TODO
     @ResponseBody
     @CrossOrigin("http://localhost:3000")
     @PostMapping(value="foodSelect",produces = "application/json;charset=UTF-8")

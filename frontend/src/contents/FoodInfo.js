@@ -93,8 +93,6 @@ class FoodInfoForm extends Component {
                           <Radio value="trans">物流公司</Radio>
                           <br />
                           <Radio value="retail">零售商</Radio>
-                          <Radio value="supervise">监管机构</Radio>
-                          <br />
                           <Radio value="food">食品溯源</Radio>
                           </Radio.Group>,
                         )}

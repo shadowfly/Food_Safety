@@ -25,20 +25,16 @@ public class RoleController {
         String resultHash = ipfs.upload(roleImg);
         switch(role.getRole()) {
             case "supp":
-                TransactionReceipt suppInsert = web3.suppInsert(roleId,roleName,resultHash);
-                System.out.println(suppInsert);
+                web3.suppInsert(roleId,roleName,resultHash);
+                System.out.println("suppInsert");
                 break;
             case "trans":
-                TransactionReceipt transInsert = web3.transInsert(roleId,roleName,resultHash);
-                System.out.println(transInsert);
+                web3.transInsert(roleId,roleName,resultHash);
+                System.out.println("transInsert");
                 break;
             case "retail":
-                TransactionReceipt retailInsert = web3.retailInsert(roleId,roleName,resultHash);
-                System.out.println(retailInsert);
-                break;
-            case "supervise":
-                TransactionReceipt threePartyInsert = web3.threePartyInsert(roleId,roleName,resultHash);
-                System.out.println(threePartyInsert);
+                web3.retailInsert(roleId,roleName,resultHash);
+                System.out.println("retailInsert");
                 break;
         }
 

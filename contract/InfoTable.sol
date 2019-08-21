@@ -14,7 +14,7 @@ contract InfoTable {
     //Food Init
     function createFood() private {
         TableFactory tf = TableFactory(0x1001);
-        tf.createTable("food_info","foodNum","suppId,transId,retailId,outDate,ingredient,temp,foodImg");
+        tf.createTable("food_info","foodNum","suppId,transId,retailId,outDate,ingredient,temp,origin,foodImg");
     }
     function openFoodTab() private returns(Table) {
         TableFactory tf = TableFactory(0x1001);
@@ -70,6 +70,7 @@ contract InfoTable {
         foodEntry.set("suppId",suppId);
         foodEntry.set("outDate",outDate);
         foodEntry.set("ingredient",ingredient);
+        foodEntry.set("origin",ingredient);
         foodEntry.set("foodImg",foodImg);
         foodTab.insert(foodNum,foodEntry);
     }

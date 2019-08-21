@@ -5,12 +5,14 @@ import AddFoodInfo from '../contents/AddFoodInfo';
 import SuppAdd from '../contents/RolesAdd/SuppAdd';
 import TransAdd from '../contents/RolesAdd/TransAdd';
 import RetailAdd from '../contents/RolesAdd/RetailAdd';
+import ThreePartyInsert from '../contents/RolesAdd/ThreePartyInsert';
 import '../css/User.css';
 import '../image/hotdog.png';
 import '../image/slogan.png';
 import Home from './Home';
 import FoodInfo from '../contents/FoodInfo';
 import Supervise from '../contents/Supervise';
+//import NoAuthority from '../contents/NoAuthority';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -40,20 +42,11 @@ class Roles extends Component {
         case "check":
           this.setState({subContent:<Supervise />})
           break;
-        case "warning":
-          this.setState({subContent:<AddFoodInfo />})
-          break;
         case "black_list":
           this.setState({subContent:<AddFoodInfo />})
           break;
         case "info":
           this.setState({subContent:<AddFoodInfo />})
-          break;
-        case "register":
-          this.setState({subContent:<AddFoodInfo />})
-          break;
-        case "login":
-          this.setState({subContent:<ApplyToChain />})
           break;
         case 'suppAdd':
             this.setState({subContent:<SuppAdd />})
@@ -63,6 +56,9 @@ class Roles extends Component {
             break;
         case 'retailAdd':
             this.setState({subContent:<RetailAdd />})
+            break;
+        case 'threePartyInsert':
+            this.setState({subContent:<ThreePartyInsert/>})
             break;
         default:
           this.setState({subContent:<Home />})
@@ -96,6 +92,7 @@ class Roles extends Component {
                     <Menu.Item key="suppAdd">制造商</Menu.Item>
                     <Menu.Item key="transAdd">物流</Menu.Item>
                     <Menu.Item key="retailAdd">零售商</Menu.Item>
+                    <Menu.Item key="threePartyInsert">监管机构</Menu.Item>
                 </SubMenu>
                 <Menu.Item key="foodInfo">
                   <Icon type="database" />
@@ -117,14 +114,6 @@ class Roles extends Component {
                   <Icon type="calendar" />
                   <span>通知通告</span>
                 </Menu.Item>
-                <Menu.Item key="register">
-                  <Icon type="user" />
-                  <span>用户注册</span>
-                </Menu.Item>
-                <Menu.Item key="login">
-                  <Icon type="idcard" />
-                  <span>用户登录</span>
-                </Menu.Item>
               </Menu>
             </Sider>
             <Layout>
@@ -134,10 +123,10 @@ class Roles extends Component {
                   <h2>拒绝脏乱差</h2>
                 </div>
                 <div>
-                  <h2>食品溯源系统</h2>
+                  <h2>食品供应链</h2>
                 </div>
                 <div>
-                  <h2>基于fisco bcos联盟链</h2>
+                  <h2>基于区块链</h2>
                 </div>
                 <div>
                   <h2>结合IPFS进行分布式存储</h2>
