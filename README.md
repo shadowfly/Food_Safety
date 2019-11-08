@@ -16,26 +16,6 @@
 
 ### 前端
 
-1. 项目介绍界面
-
-   ![image](https://github.com/RookieLinLucy666/Food_Safety/raw/master/image/background.png)
-
-2. 申请入链界面
-
-   ![image](https://github.com/RookieLinLucy666/Food_Safety/raw/master/image/applytochain.png)
-
-3. 信息上传界面
-
-   ![image](https://github.com/RookieLinLucy666/Food_Safety/raw/master/image/infoupload.png)
-
-4. 信息查询界面
-
-   ![image](https://github.com/RookieLinLucy666/Food_Safety/raw/master/image/infoselect.png)
-
-5. 监督抽查界面
-
-   ![image](https://github.com/RookieLinLucy666/Food_Safety/raw/master/image/supervise.png)
-
 ### 后端
 1. 合约
 2. ipfs调用
